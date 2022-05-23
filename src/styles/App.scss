@@ -1,0 +1,10 @@
+.app {
+  margin: 5rem auto;
+
+  .input_form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
