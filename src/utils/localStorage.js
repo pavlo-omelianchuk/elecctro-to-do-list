@@ -1,18 +1,18 @@
 export const syncFromLocalStorage = () => {
-  let storageTasks;
-  storageTasks =
-    localStorage.getItem("storageTasks") === null
+  let toToTasks;
+  toToTasks =
+    localStorage.getItem("toToTasks") === null
       ? []
-      : JSON.parse(localStorage.getItem("storageTasks"));
-  this.setState({ tasks: storageTasks });
+      : JSON.parse(localStorage.getItem("toToTasks"));
+  return toToTasks;
 };
 
-export const syncToLocalStorage = (content, isCompleted, timestamp) => {
-  let storageTasks;
-  storageTasks =
-    localStorage.getItem("storageTasks") === null
+export const syncToLocalStorage = (id, content, isCompleted, timestamp) => {
+  let toToTasks;
+  toToTasks =
+    localStorage.getItem("toToTasks") === null
       ? []
-      : JSON.parse(localStorage.getItem("storageTasks"));
-  storageTasks.push({ content, isCompleted, timestamp });
-  localStorage.setItem("storageTasks", JSON.stringify(storageTasks));
+      : JSON.parse(localStorage.getItem("toToTasks"));
+  toToTasks.push({ id, content, isCompleted, timestamp });
+  localStorage.setItem("toToTasks", JSON.stringify(toToTasks));
 };
