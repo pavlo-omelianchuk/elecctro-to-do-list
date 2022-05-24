@@ -8,13 +8,46 @@
     gap: 1rem;
     margin: 2rem 0;
   }
+
   .tasks_list_title {
-    width: 100%;
     font-weight: 600;
     border-bottom: 2px black solid;
     padding: 5px;
   }
-  .to_do_item {
-    list-style-type: none;
+
+  .tasks_list_wrapper {
+    margin: 0;
+    padding: 0;
+
+    .no_todos {
+      padding: 5px;
+    }
+
+    .to_do_item {
+      display: flex;
+      list-style-type: none;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid black;
+      padding: 10px;
+
+      .check_task_content {
+        display: flex;
+        align-items: center;
+
+        input[type="checkbox"] {
+          box-sizing: border-box;
+          width: 22px;
+          height: 22px;
+          margin-right: 10px;
+        }
+      }
+      .manage_buttons {
+        span {
+          cursor: pointer;
+        }
+      }
+    }
   }
 }

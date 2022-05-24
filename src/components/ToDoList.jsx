@@ -8,14 +8,16 @@ const ToDoList = () => {
   console.log(toDoList);
 
   return (
-    <div className="tasks_wrapper">
+    <>
       <div className="tasks_list_title">Tasks</div>
-      <ul>
-        {toDoList.map((item, index) => (
-          <ToDo item={item} key={index} />
-        ))}
+      <ul className="tasks_list_wrapper">
+        {toDoList[0] ? (
+          toDoList.map((item, index) => <ToDo item={item} key={index} />)
+        ) : (
+          <p className="no_todos">No tasks, create one!</p>
+        )}
       </ul>
-    </div>
+    </>
   );
 };
 

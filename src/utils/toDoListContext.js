@@ -27,6 +27,27 @@ export function ToDoListProvider({ children }) {
   ]);
 
   function updateToDoList(action, id, content, isCompleated, timestamp) {
+    if (action === "addNewItem") {
+      const newItem = {
+        id,
+        content,
+        isCompleated,
+        timestamp,
+      };
+      setToDoList([...toDoList, newItem]);
+    }
+    if (action === "update") {
+      const newToDoList = toDoList.map((toDo) => {
+        if (toDo.id === id) {
+          return {
+            ...toDo,
+            content: content,
+          };
+        }
+        return toDo;
+      });
+      setToDoList(newToDoList);
+    }
     if (action === "isComplited") {
       const newToDoList = toDoList.map((toDo) => {
         if (toDo.id === id) {
@@ -39,26 +60,11 @@ export function ToDoListProvider({ children }) {
       });
       setToDoList(newToDoList);
     }
-    if (action === "addNewItem") {
-      const newItem = {
-        id: id,
-        content: content,
-        isCompleated: isCompleated,
-        timestamp: timestamp,
-      };
-      console.log(newItem);
-      // const newToDoList = toDoList.push(newItem);
-      console.log(toDoList);
-      // console.log(newToDoList);
-      setToDoList([
-        ...toDoList,
-        {
-          id: id,
-          content: content,
-          isCompleated: isCompleated,
-          timestamp: timestamp,
-        },
-      ]);
+    if (action === "delete") {
+      const remainingTasks = toDoList.filter((task) => {
+        return id !== task.id;
+      });
+      setToDoList(remainingTasks);
     }
   }
   return (
