@@ -19,8 +19,8 @@ const InputForm = ({ action, content, id, toggleIsEditing }) => {
       toggleIsEditing();
     } else {
       toDoListUpdate(
-        "addNewItem",
-        toDoList.length + 1,
+        "addNewToDo",
+        toDoList.length,
         taskInputValue,
         false,
         Date.now()

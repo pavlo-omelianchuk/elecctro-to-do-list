@@ -1,4 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import {
+  syncFromLocalStorage,
+  addToLocalStorage,
+  updateToLocalStorage,
+} from "./localStorage";
 
 const ToDoListContext = React.createContext();
 const ToDoListUpdateContext = React.createContext();
@@ -26,17 +31,21 @@ export function ToDoListProvider({ children }) {
     },
   ]);
 
-  function updateToDoList(action, id, content, isCompleated, timestamp) {
-    if (action === "addNewItem") {
+  useEffect(() => {
+    setToDoList(syncFromLocalStorage());
+  }, []);
+
+  function updateToDoList(action, id, content, isCompleted, timestamp) {
+    if (action === "addNewToDo") {
       const newItem = {
         id,
         content,
-        isCompleated,
+        isCompleted,
         timestamp,
       };
       setToDoList([...toDoList, newItem]);
-    }
-    if (action === "update") {
+      addToLocalStorage(id, content, isCompleted, timestamp);
+    } else if (action === "update") {
       const newToDoList = toDoList.map((toDo) => {
         if (toDo.id === id) {
           return {
@@ -47,8 +56,8 @@ export function ToDoListProvider({ children }) {
         return toDo;
       });
       setToDoList(newToDoList);
-    }
-    if (action === "isComplited") {
+      updateToLocalStorage(newToDoList);
+    } else if (action === "isComplited") {
       const newToDoList = toDoList.map((toDo) => {
         if (toDo.id === id) {
           return {
@@ -59,12 +68,20 @@ export function ToDoListProvider({ children }) {
         return toDo;
       });
       setToDoList(newToDoList);
-    }
-    if (action === "delete") {
-      const remainingTasks = toDoList.filter((task) => {
-        return id !== task.id;
+      updateToLocalStorage(newToDoList);
+    } else if (action === "delete") {
+      const remainingToDos = toDoList.filter((toDo) => {
+        return id !== toDo.id;
       });
-      setToDoList(remainingTasks);
+      const newToDoList = remainingToDos.map((toDo, index) => {
+        return {
+          ...toDo,
+          id: index,
+        };
+      });
+      console.log(remainingToDos);
+      setToDoList(newToDoList);
+      updateToLocalStorage(newToDoList);
     }
   }
   return (
