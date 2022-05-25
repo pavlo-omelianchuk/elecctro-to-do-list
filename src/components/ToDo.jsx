@@ -18,7 +18,7 @@ const ToDo = ({ item }) => {
   };
 
   return (
-    <li id={`todo-${item.id}`} className="to_do_item">
+    <li id={`todo-${item.id}`} className="to_do_item fade_in_down">
       <div className="check_task_content">
         <input
           name="isCompleted"
