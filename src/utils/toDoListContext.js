@@ -36,51 +36,64 @@ export function ToDoListProvider({ children }) {
   }, []);
 
   function updateToDoList(action, id, content, isCompleted, timestamp) {
-    if (action === "addNewTask") {
-      const newItem = {
-        id,
-        content,
-        isCompleted,
-        timestamp,
-      };
-      setToDoList([...toDoList, newItem]);
-      addToLocalStorage(id, content, isCompleted, timestamp);
-    } else if (action === "update") {
-      const newToDoList = toDoList.map((task) => {
-        if (task.id === id) {
-          return {
-            ...task,
-            content: content,
-          };
-        }
-        return task;
-      });
-      setToDoList(newToDoList);
-      updateToLocalStorage(newToDoList);
-    } else if (action === "isComplited") {
-      const newToDoList = toDoList.map((task) => {
-        if (task.id === id) {
-          return {
-            ...task,
-            isCompleted: !task.isCompleted,
-          };
-        }
-        return task;
-      });
-      setToDoList(newToDoList);
-      updateToLocalStorage(newToDoList);
-    } else if (action === "delete") {
-      const remainingToDos = toDoList.filter((task) => {
-        return id !== task.id;
-      });
-      const newToDoList = remainingToDos.map((task, index) => {
-        return {
-          ...task,
-          id: index,
+    let newToDoList;
+
+    switch (action) {
+      case "addNewTask":
+        const newItem = {
+          id,
+          content,
+          isCompleted,
+          timestamp,
         };
-      });
-      setToDoList(newToDoList);
-      updateToLocalStorage(newToDoList);
+        setToDoList([...toDoList, newItem]);
+        addToLocalStorage(id, content, isCompleted, timestamp);
+        break;
+
+      case "update":
+        newToDoList = toDoList.map((task) => {
+          if (task.id === id) {
+            return {
+              ...task,
+              content: content,
+            };
+          }
+          return task;
+        });
+        setToDoList(newToDoList);
+        updateToLocalStorage(newToDoList);
+        break;
+
+      case "isComplited":
+        newToDoList = toDoList.map((task) => {
+          if (task.id === id) {
+            return {
+              ...task,
+              isCompleted: !task.isCompleted,
+            };
+          }
+          return task;
+        });
+        setToDoList(newToDoList);
+        updateToLocalStorage(newToDoList);
+        break;
+
+      case "delete":
+        const remainingToDos = toDoList.filter((task) => {
+          return id !== task.id;
+        });
+        newToDoList = remainingToDos.map((task, index) => {
+          return {
+            ...task,
+            id: index,
+          };
+        });
+        setToDoList(newToDoList);
+        updateToLocalStorage(newToDoList);
+        break;
+
+      default:
+        break;
     }
   }
   return (
