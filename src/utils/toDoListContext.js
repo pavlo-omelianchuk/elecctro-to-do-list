@@ -36,7 +36,7 @@ export function ToDoListProvider({ children }) {
   }, []);
 
   function updateToDoList(action, id, content, isCompleted, timestamp) {
-    if (action === "addNewToDo") {
+    if (action === "addNewTask") {
       const newItem = {
         id,
         content,
@@ -46,40 +46,39 @@ export function ToDoListProvider({ children }) {
       setToDoList([...toDoList, newItem]);
       addToLocalStorage(id, content, isCompleted, timestamp);
     } else if (action === "update") {
-      const newToDoList = toDoList.map((toDo) => {
-        if (toDo.id === id) {
+      const newToDoList = toDoList.map((task) => {
+        if (task.id === id) {
           return {
-            ...toDo,
+            ...task,
             content: content,
           };
         }
-        return toDo;
+        return task;
       });
       setToDoList(newToDoList);
       updateToLocalStorage(newToDoList);
     } else if (action === "isComplited") {
-      const newToDoList = toDoList.map((toDo) => {
-        if (toDo.id === id) {
+      const newToDoList = toDoList.map((task) => {
+        if (task.id === id) {
           return {
-            ...toDo,
-            isCompleted: !toDo.isCompleted,
+            ...task,
+            isCompleted: !task.isCompleted,
           };
         }
-        return toDo;
+        return task;
       });
       setToDoList(newToDoList);
       updateToLocalStorage(newToDoList);
     } else if (action === "delete") {
-      const remainingToDos = toDoList.filter((toDo) => {
-        return id !== toDo.id;
+      const remainingToDos = toDoList.filter((task) => {
+        return id !== task.id;
       });
-      const newToDoList = remainingToDos.map((toDo, index) => {
+      const newToDoList = remainingToDos.map((task, index) => {
         return {
-          ...toDo,
+          ...task,
           id: index,
         };
       });
-      console.log(remainingToDos);
       setToDoList(newToDoList);
       updateToLocalStorage(newToDoList);
     }
