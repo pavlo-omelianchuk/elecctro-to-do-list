@@ -37,7 +37,7 @@ const ToDo = ({ item }) => {
         )}
       </div>
       <div className="manage_buttons">
-        <span onClick={toggleIsEditing}>Edit</span>
+        <span onClick={toggleIsEditing}>{!isEditing ? "Edit" : "Cancel"}</span>
         {" / "}
         <span onClick={() => handleDelete(item.id)}>Delete</span>
       </div>

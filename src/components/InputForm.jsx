@@ -36,9 +36,10 @@ const InputForm = ({ action, content, id, toggleIsEditing }) => {
     <form className="input_form" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder={action === "updateForm" ? content : "Write new task here"}
+        placeholder={
+          action === "updateForm" ? content : "Write new task here ..."
+        }
         value={taskInputValue}
-        // value={taskInputValue}
         onChange={handleChange}
       />
       <button type="submit">

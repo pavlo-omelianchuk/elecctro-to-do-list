@@ -1,3 +1,24 @@
+@mixin checkbox_styling {
+  display: flex;
+  align-items: center;
+
+  input[type="checkbox"] {
+    box-sizing: border-box;
+    width: 22px;
+    height: 22px;
+    margin-right: 10px;
+  }
+  input[type="text"] {
+    border: 0px;
+  }
+}
+
+body {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f0f0f0;
+  letter-spacing: 1.2;
+}
 .app {
   margin: 5rem auto;
 
@@ -6,11 +27,22 @@
     flex-direction: row;
     justify-content: center;
     gap: 1rem;
+    min-width: 80vw;
+
+    input {
+      width: 50%;
+      border: 3px solid black;
+      font-size: 16px;
+      padding: 5px 1px;
+    }
+    button {
+      border: 3px solid black;
+    }
   }
 
   .tasks_list_title {
     font-weight: 600;
-    border-bottom: 2px black solid;
+    border-bottom: 3px black solid;
     padding: 5px;
 
     .sorted_by {
@@ -38,15 +70,7 @@
       padding: 10px;
 
       .check_task_content {
-        display: flex;
-        align-items: center;
-
-        input[type="checkbox"] {
-          box-sizing: border-box;
-          width: 22px;
-          height: 22px;
-          margin-right: 10px;
-        }
+        @include checkbox_styling;
       }
       .manage_buttons {
         span {
@@ -54,5 +78,15 @@
         }
       }
     }
+  }
+  .hide_completed {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    font-weight: 600;
+    padding: 5px;
+    gap: 10px;
+    @include checkbox_styling;
   }
 }

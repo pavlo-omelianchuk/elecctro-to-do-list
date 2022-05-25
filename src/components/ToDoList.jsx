@@ -5,7 +5,17 @@ import ToDo from "./ToDo";
 
 const ToDoList = () => {
   const [sortType, setSortType] = useState("timestamp");
-  const toDoList = useToDoList();
+  const [isComleatedHidden, setIsComleatedHidden] = useState(false);
+
+  let toDoList = useToDoList();
+
+  toDoList = !isComleatedHidden
+    ? toDoList
+    : toDoList.filter((item) => !item.isCompleted);
+
+  const handleHideCompleted = () => {
+    setIsComleatedHidden(!isComleatedHidden);
+  };
 
   const sortByAToZ = (toDoList) => {
     return toDoList.sort((a, b) => a.content.localeCompare(b.content));
@@ -51,6 +61,17 @@ const ToDoList = () => {
           <p className="no_todos">No tasks :( Create one!</p>
         )}
       </ul>
+      {toDoList[0] && (
+        <div className="hide_completed">
+          Hide completed{" "}
+          <input
+            name="hideCompleted"
+            type="checkbox"
+            checked={isComleatedHidden}
+            onChange={handleHideCompleted}
+          />
+        </div>
+      )}
     </>
   );
 };
