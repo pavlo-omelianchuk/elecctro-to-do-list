@@ -1,21 +1,26 @@
 export const syncFromLocalStorage = () => {
-  let toToTasks;
-  toToTasks =
-    localStorage.getItem("toToTasks") === null
+  let keys = Object.keys(localStorage);
+  for (let key of keys) {
+    return localStorage.getItem("todoTasks") === null
       ? []
-      : JSON.parse(localStorage.getItem("toToTasks"));
-  return toToTasks;
+      : JSON.parse(localStorage.getItem(key));
+  }
 };
 
-export const addToLocalStorage = (id, content, isCompleted, timestamp) => {
-  let toToTasks;
-  toToTasks =
-    localStorage.getItem("toToTasks") === null
+export const addToLocalStorage = (
+  lsKey,
+  id,
+  content,
+  isCompleted,
+  timestamp
+) => {
+  let localStorageKey =
+    localStorage.getItem(lsKey) === null
       ? []
-      : JSON.parse(localStorage.getItem("toToTasks"));
-  toToTasks.push({ id, content, isCompleted, timestamp });
-  localStorage.setItem("toToTasks", JSON.stringify(toToTasks));
+      : JSON.parse(localStorage.getItem(lsKey));
+  localStorageKey.push({ id, content, isCompleted, timestamp });
+  localStorage.setItem(lsKey, JSON.stringify(localStorageKey));
 };
-export const updateToLocalStorage = (toToTasks) => {
-  localStorage.setItem("toToTasks", JSON.stringify(toToTasks));
+export const updateToLocalStorage = (lsKey, todoTasks) => {
+  localStorage.setItem(lsKey, JSON.stringify(todoTasks));
 };

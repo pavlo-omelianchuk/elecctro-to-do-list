@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { useToDoList } from "../utils/toDoListContext";
+import { useTodoList } from "../../utils/todoListContext";
 
-import ToDo from "./ToDo";
+import Todo from "./Todo";
 
-const ToDoList = () => {
+const TodoList = () => {
   const [sortType, setSortType] = useState("timestamp");
   const [isComleatedHidden, setIsComleatedHidden] = useState(false);
 
-  let toDoList = useToDoList();
+  let toDoList = useTodoList();
 
   toDoList = !isComleatedHidden
     ? toDoList
@@ -55,7 +55,7 @@ const ToDoList = () => {
       <ul className="tasks_list_wrapper">
         {toDoList[0] ? (
           sortManager[sortType](toDoList).map((item, index) => (
-            <ToDo item={item} key={index} />
+            <Todo item={item} key={index} />
           ))
         ) : (
           <p className="no_todos">No tasks :( Create one!</p>
@@ -76,4 +76,4 @@ const ToDoList = () => {
   );
 };
 
-export default ToDoList;
+export default TodoList;

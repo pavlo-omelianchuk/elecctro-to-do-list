@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useToDoList, useToDoListUpdate } from "../utils/toDoListContext";
+import { useTodoList, useTodoListUpdate } from "../../utils/todoListContext";
+import Button from "../Button/Button";
 
 const InputForm = ({ action, content, id, toggleIsEditing }) => {
   const [taskInputValue, setTaskInputValue] = useState("");
@@ -10,8 +11,8 @@ const InputForm = ({ action, content, id, toggleIsEditing }) => {
     }
   }, [action, content]);
 
-  const toDoList = useToDoList();
-  const toDoListUpdate = useToDoListUpdate();
+  const toDoList = useTodoList();
+  const toDoListUpdate = useTodoListUpdate();
 
   const handleSubmit = (event) => {
     if (action === "updateForm") {
@@ -42,9 +43,7 @@ const InputForm = ({ action, content, id, toggleIsEditing }) => {
         value={taskInputValue}
         onChange={handleChange}
       />
-      <button type="submit">
-        {action === "updateForm" ? "Update" : "Create"}
-      </button>
+      <Button action={action} type="submit" />
     </form>
   );
 };

@@ -1,4 +1,5 @@
 @import "./helpers";
+@import "./login_form";
 
 body {
   box-sizing: border-box;
@@ -6,76 +7,74 @@ body {
   background: #f0f0f0;
   letter-spacing: 1.2;
 }
-.app {
-  margin: 5rem auto;
 
-  .input_form {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-    min-width: 80vw;
+.input_form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  min-width: 80vw;
+  margin: 40px auto;
 
-    input {
-      width: 50%;
-      border: 3px solid black;
-      font-size: 16px;
-      padding: 5px 1px;
-    }
-    button {
-      border: 3px solid black;
-    }
+  input {
+    width: 50%;
+    border: 3px solid black;
+    font-size: 16px;
+    padding: 5px 1px;
   }
+  button {
+    border: 3px solid black;
+  }
+}
 
-  .tasks_list_title {
-    font-weight: 600;
-    border-bottom: 3px black solid;
+.tasks_list_title {
+  font-weight: 600;
+  border-bottom: 3px black solid;
+  padding: 5px;
+
+  .sorted_by {
+    display: block;
+    font-size: 10px;
+    font-weight: 300;
+  }
+}
+
+.tasks_list_wrapper {
+  margin: 0;
+  padding: 0;
+
+  .no_todos {
     padding: 5px;
-
-    .sorted_by {
-      display: block;
-      font-size: 10px;
-      font-weight: 300;
-    }
   }
 
-  .tasks_list_wrapper {
-    margin: 0;
-    padding: 0;
-
-    .no_todos {
-      padding: 5px;
-    }
-
-    .to_do_item {
-      display: flex;
-      list-style-type: none;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 2px solid black;
-      padding: 10px;
-
-      .check_task_content {
-        @include checkbox_styling;
-      }
-      .manage_buttons {
-        span {
-          cursor: pointer;
-        }
-      }
-    }
-  }
-  .hide_completed {
+  .to_do_item {
     display: flex;
+    list-style-type: none;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
-    font-weight: 600;
-    padding: 5px;
-    gap: 10px;
-    @include checkbox_styling;
+    border-bottom: 2px solid black;
+    padding: 10px;
+
+    .check_task_content {
+      @include checkbox_styling;
+    }
+    .manage_buttons {
+      span {
+        cursor: pointer;
+      }
+    }
   }
+}
+.hide_completed {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: 600;
+  padding: 5px;
+  gap: 10px;
+  @include checkbox_styling;
 }
 
 .fade_in_down {

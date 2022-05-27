@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useToDoListUpdate } from "../utils/toDoListContext";
+import { useTodoListUpdate } from "../../utils/todoListContext";
 
 import InputForm from "./InputForm";
 
-const ToDo = ({ item }) => {
-  const toDoListUpdate = useToDoListUpdate();
+const Todo = ({ item }) => {
+  const toDoListUpdate = useTodoListUpdate();
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleIsEditing = () => {
@@ -14,7 +14,7 @@ const ToDo = ({ item }) => {
     toDoListUpdate("delete", id);
   };
   const handleIsComplited = (id) => {
-    toDoListUpdate("isComplited", id);
+    toDoListUpdate("isCompleted", id);
   };
 
   return (
@@ -45,4 +45,4 @@ const ToDo = ({ item }) => {
   );
 };
 
-export default ToDo;
+export default Todo;
