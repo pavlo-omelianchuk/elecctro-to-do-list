@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTodoList } from "../../utils/todoListContext";
+import { useTodoList } from "../../utils/todoListContext.js";
 
 import Todo from "./Todo";
 
@@ -53,7 +53,7 @@ const TodoList = () => {
         </span>
       </div>
       <ul className="tasks_list_wrapper">
-        {todoList[0] ? (
+        {todoList?.length !== 0 ? (
           sortManager[sortType](todoList).map((item, index) => (
             <Todo item={item} key={index} />
           ))
@@ -61,7 +61,7 @@ const TodoList = () => {
           <p className="no_todos">No tasks :( Create one!</p>
         )}
       </ul>
-      {todoList[0] && (
+      {todoList?.length !== 0 && (
         <div className="hide_completed">
           {isComleatedHidden ? "Show completed" : "Hide completed"}
           <input

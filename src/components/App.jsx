@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useUsersData } from "../utils/todoListContext";
 import "../styles/App.scss";
 
 //components
@@ -10,7 +9,7 @@ import Authorization from "./Authentication/Authorization";
 import Redirection from "./Redirection/Redirection";
 
 function AppRouter() {
-  let { usersData } = useUsersData();
+
 
   return (
     <BrowserRouter>
@@ -20,7 +19,7 @@ function AppRouter() {
         <Route
           path="/"
           element={
-            <Redirection isLoggedIn={usersData[0]?.isLoggedIn}>
+            <Redirection >
               <Main />
             </Redirection>
           }

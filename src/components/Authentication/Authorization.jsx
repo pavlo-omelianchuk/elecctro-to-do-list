@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUsersData } from "../../utils/todoListContext";
-import { addToLocalStorage } from "../../utils/localStorage";
+import { useUsersData } from "../../utils/todoListContext.js";
 
 import Button from "../Button/Button";
 
@@ -9,6 +8,7 @@ export default function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [errorMessageContent, setErrorMessageContent] = useState("");
   const [error, setError] = useState(false);
 
   let { usersData, updateUsersData } = useUsersData();
@@ -16,32 +16,51 @@ export default function Login() {
   let navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    console.log("first");
     e.preventDefault();
-    usersData = usersData[0] ? usersData : [{}];
-    usersData.map((user) => {
-      console.log("sec");
-      const id = usersData.length + 1;
-      if (user?.email === email && user?.pass === pass) {
+    if (usersData?.length > 0) {
+      console.log(usersData);
+      console.log("first");
+      usersData.map((user) => {
+        if (user?.email === email && user?.pass === pass) {
+          setErrorMessageContent("User already exist");
+          setError(true);
+          setTimeout(() => {
+            setError(false);
+          }, 2000);
+        } else {
+          updateUsersData(
+            "addNewUser",
+            usersData.length,
+            name,
+            email,
+            pass,
+            true
+          );
+          setTimeout(() => {
+            navigate("/");
+          }, 1000);
+        }
+      });
+    } else if (!usersData?.length) {
+      if (name === "" || email === "" || pass === "") {
         setError(true);
+        setErrorMessageContent("Please Fill Up all necessary Fields");
         setTimeout(() => {
           setError(false);
         }, 2000);
       } else {
-        updateUsersData(
-          "addNewUser",
-          usersData.length,
-          name,
-          email,
-          pass,
-          true
-        );
-        // setUsersData([...usersData, newUser]);
+        updateUsersData("addNewUser", 0, name, email, pass, true);
         setTimeout(() => {
           navigate("/");
         }, 1000);
       }
-    });
+    } else {
+      setError(true);
+      setErrorMessageContent("Something went wrong");
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
+    }
   };
 
   const errorMessage = () => {
@@ -52,7 +71,7 @@ export default function Login() {
           display: error ? "" : "none",
         }}
       >
-        <span>User already exist</span>
+        <span>{errorMessageContent}</span>
       </div>
     );
   };

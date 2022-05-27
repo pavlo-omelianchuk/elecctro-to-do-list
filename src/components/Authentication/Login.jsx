@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUsersData } from "../../utils/todoListContext";
+import { updateToLocalStorage } from "../../utils/localStorage";
 
 import Button from "../Button/Button";
 
 export default function Login() {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  const [errorMessageContent, setErrorMessageContent] = useState("");
   const [error, setError] = useState(false);
 
   let { usersData, updateUsersData } = useUsersData();
@@ -16,23 +17,29 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    usersData.map((user) => {
-      if (user.email === email && user.pass === pass) {
-        let updateUsers = usersData.map((user) => {
-          return {
-            ...user,
-            isLoggedIn: true,
-          };
-        });
-        updateUsersData("updateData", updateUsers);
-        navigate("/");
-      } else {
-        setError(true);
-        setTimeout(() => {
-          setError(false);
-        }, 2000);
-      }
-    });
+    if (usersData?.length > 0) {
+      usersData.map((user) => {
+        console.log(user);
+
+        if (user.email === email && user.pass === pass) {
+          updateUsersData("login", user.id);
+          navigate("/");
+        } else {
+          setError(true);
+          setErrorMessageContent("User does not exist");
+
+          setTimeout(() => {
+            setError(false);
+          }, 2000);
+        }
+      });
+    } else {
+      setError(true);
+      setErrorMessageContent("You are not Registered, Please SignUp first");
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
+    }
   };
 
   const errorMessage = () => {
@@ -43,14 +50,11 @@ export default function Login() {
           display: error ? "" : "none",
         }}
       >
-        <span>User does not exist</span>
+        <span>{errorMessageContent} </span>
       </div>
     );
   };
 
-  const handleChangeName = (e) => {
-    setName(e.target.value);
-  };
   const handleChangeEmail = (e) => {
     setEmail(e.target.value);
   };

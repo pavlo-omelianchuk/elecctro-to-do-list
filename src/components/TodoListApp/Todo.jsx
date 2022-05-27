@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useTodoListUpdate } from "../../utils/todoListContext";
+import { useTodoListUpdate } from "../../utils/todoListContext.js";
 
+//components
 import InputForm from "./InputForm";
 
 const Todo = ({ item }) => {
