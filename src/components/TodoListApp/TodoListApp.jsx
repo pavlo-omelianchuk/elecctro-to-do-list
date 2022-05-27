@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useUsersData } from "../../utils/todoListContext.js";
 import { useNavigate } from "react-router-dom";
 
@@ -8,27 +8,37 @@ import InputForm from "./InputForm";
 import Todos from "./Todos";
 
 export default function TodoList() {
-  let { usersData, updateUsersData, currentUser } = useUsersData();
-  const firstRender = useRef(true);
-
+  let { updateUsersData, currentUser } = useUsersData();
+  console.log("first");
   let navigate = useNavigate();
   return (
     <>
-      <Button
-        action="Logout"
-        type="button"
-        onClickAction={() => {
-          updateUsersData(
-            "manageLogin",
-            currentUser?.id,
-            currentUser?.userName,
-            currentUser?.email,
-            currentUser?.pass,
-            false
-          );
-          navigate("/login");
-        }}
-      />
+      {!currentUser ? (
+        <Button
+          action="Login"
+          type="button"
+          onClickAction={() => {
+            navigate("/login");
+          }}
+        />
+      ) : (
+        <Button
+          action="Logout"
+          type="button"
+          onClickAction={() => {
+            updateUsersData(
+              "logout",
+              currentUser?.id,
+              currentUser?.userName,
+              currentUser?.email,
+              currentUser?.pass,
+              false
+            );
+            navigate("/login");
+          }}
+        />
+      )}
+
       <InputForm />
       <Todos />
     </>

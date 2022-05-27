@@ -55,6 +55,7 @@ export function TodoListProvider({ children }) {
 
   function updateUsersData(action, id, userName, email, pass, isLoggedIn) {
     let newUsersData;
+    let current;
 
     switch (action) {
       case "addNewUser":
@@ -99,7 +100,27 @@ export function TodoListProvider({ children }) {
 
           return user;
         });
-        const current = usersData.filter((user) => user.id === id);
+        current = usersData.filter((user) => user.id === id);
+        updateToLocalStorage("currentUser", current);
+        console.log(newUsersData);
+        setUsersData(newUsersData);
+        updateToLocalStorage("usersData", newUsersData);
+
+        break;
+
+      case "logout":
+        newUsersData = usersData.map((user) => {
+          console.log(id);
+          if (user.id === id) {
+            return {
+              ...user,
+              isLoggedIn: false,
+            };
+          }
+
+          return user;
+        });
+        current = usersData.filter((user) => user.id === id);
         updateToLocalStorage("currentUser", current);
         console.log(newUsersData);
         setUsersData(newUsersData);
@@ -123,7 +144,11 @@ export function TodoListProvider({ children }) {
           isCompleted,
           timestamp,
         };
-        setTodoList([...toDoList, newItem]);
+        if (id === 0) {
+          setTodoList([newItem]);
+        } else {
+          setTodoList([...toDoList, newItem]);
+        }
         addToLocalStorage("todoTasks", newItem);
         break;
 

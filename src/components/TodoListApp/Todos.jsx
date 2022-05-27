@@ -18,13 +18,13 @@ const TodoList = () => {
   };
 
   const sortByAToZ = (todoList) => {
-    return todoList.sort((a, b) => a.content.localeCompare(b.content));
+    return todoList?.sort((a, b) => a.content.localeCompare(b.content));
   };
   const sortByZToA = (todoList) => {
-    return todoList.sort((a, b) => b.content.localeCompare(a.content));
+    return todoList?.sort((a, b) => b.content.localeCompare(a.content));
   };
   const sortByTimestamp = (todoList) => {
-    return todoList.sort(
+    return todoList?.sort(
       (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
     );
   };
@@ -54,7 +54,7 @@ const TodoList = () => {
       </div>
       <ul className="tasks_list_wrapper">
         {todoList?.length !== 0 ? (
-          sortManager[sortType](todoList).map((item, index) => (
+          sortManager[sortType](todoList)?.map((item, index) => (
             <Todo item={item} key={index} />
           ))
         ) : (

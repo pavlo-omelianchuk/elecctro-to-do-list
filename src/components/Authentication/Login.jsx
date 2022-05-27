@@ -1,7 +1,6 @@
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUsersData } from "../../utils/todoListContext";
-import { updateToLocalStorage } from "../../utils/localStorage";
 
 import Button from "../Button/Button";
 
@@ -11,7 +10,13 @@ export default function Login() {
   const [errorMessageContent, setErrorMessageContent] = useState("");
   const [error, setError] = useState(false);
 
-  let { usersData, updateUsersData } = useUsersData();
+  let { usersData, updateUsersData, currentUser } = useUsersData();
+
+  useEffect(() => {
+    if (currentUser?.id) {
+      navigate("/");
+    }
+  }, []);
 
   let navigate = useNavigate();
 
@@ -19,9 +24,8 @@ export default function Login() {
     e.preventDefault();
     if (usersData?.length > 0) {
       usersData.map((user) => {
-        console.log(user);
-
         if (user.email === email && user.pass === pass) {
+          console.log("user");
           updateUsersData("login", user.id);
           navigate("/");
         } else {

@@ -3,14 +3,17 @@ import { Navigate } from "react-router-dom";
 import { useUsersData } from "../../utils/todoListContext.js";
 
 const Redirection = ({ children }) => {
-  let { usersData, currentUser } = useUsersData();
+  let { currentUser } = useUsersData();
+  let isLoggedIn;
+  if (currentUser === undefined) {
+    isLoggedIn = true;
+  } else {
+    isLoggedIn = currentUser.isLoggedIn;
+  }
 
-  console.log(currentUser[0]?.isLoggedIn);
-
-  return currentUser[0]?.isLoggedIn ? (
-    children
-  ) : (
-    <Navigate to="/login" replace />
-  );
+  return currentUser
+    ? children
+    : // <Navigate to="/login" replace />
+      children;
 };
 export default Redirection;

@@ -36,9 +36,8 @@ export default function Login() {
             pass,
             true
           );
-          setTimeout(() => {
-            navigate("/");
-          }, 1000);
+
+          navigate("/");
         }
       });
     } else if (!usersData?.length) {
@@ -50,9 +49,7 @@ export default function Login() {
         }, 2000);
       } else {
         updateUsersData("addNewUser", 0, name, email, pass, true);
-        setTimeout(() => {
-          navigate("/");
-        }, 1000);
+        navigate("/");
       }
     } else {
       setError(true);

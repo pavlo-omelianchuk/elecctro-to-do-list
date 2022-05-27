@@ -14,20 +14,22 @@ const InputForm = ({ action, content, id, toggleIsEditing }) => {
   const toDoList = useTodoList();
   const toDoListUpdate = useTodoListUpdate();
 
+  const tasksLength = toDoList?.length || 0;
+
   const handleSubmit = (event) => {
+    event.preventDefault();
     if (action === "updateForm") {
       toDoListUpdate("update", id, taskInputValue);
       toggleIsEditing();
     } else {
       toDoListUpdate(
         "addNewTask",
-        toDoList.length,
+        tasksLength,
         taskInputValue,
         false,
         Date.now()
       );
     }
-    event.preventDefault();
     setTaskInputValue("");
   };
   const handleChange = (event) => {
