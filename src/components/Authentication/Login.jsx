@@ -10,7 +10,7 @@ export default function Login() {
   const [pass, setPass] = useState("");
   const [error, setError] = useState(false);
 
-  let { usersData, setUsersData } = useUsersData();
+  let { usersData, updateUsersData } = useUsersData();
 
   let navigate = useNavigate();
 
@@ -24,7 +24,7 @@ export default function Login() {
             isLoggedIn: true,
           };
         });
-        setUsersData(updateUsers);
+        updateUsersData("updateData", updateUsers);
         navigate("/");
       } else {
         setError(true);
@@ -60,10 +60,10 @@ export default function Login() {
 
   return (
     <div className="login_form_wrapper">
-      <h1>Login Page</h1>
       <form className="login_form" onSubmit={handleSubmit}>
         <div className="messages">{errorMessage()}</div>
-        <div>Login</div>
+        <h3>Please Login</h3>
+
         <label>
           Email:
           <input
@@ -85,7 +85,12 @@ export default function Login() {
         <Button action="Login" type="submit" />
         <span>
           Doesn't registered?{" "}
-          <span className="navigate_to" onClick={() => {}}>
+          <span
+            className="navigate_to"
+            onClick={() => {
+              navigate("/signup");
+            }}
+          >
             SignUp
           </span>{" "}
         </span>

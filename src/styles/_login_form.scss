@@ -1,8 +1,44 @@
-.layout_wrapper {
+.login_form_wrapper {
+  text-align: center;
   background: rgba(0, 0, 0, 0.295);
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .login_form {
+    position: relative;
+    background-color: white;
+    height: 280px;
+    width: 420px;
+    border-radius: 15px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+
+    h3 {
+      margin-top: 0;
+    }
+
+    label {
+      display: flex;
+      justify-content: space-between;
+      width: 300px;
+    }
+    .messages {
+      position: absolute;
+      top: -20px;
+      color: red;
+    }
+    .navigate_to {
+      cursor: pointer;
+      color: lightseagreen;
+    }
+  }
 }
+
+

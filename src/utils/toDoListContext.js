@@ -46,32 +46,49 @@ export function TodoListProvider({ children }) {
   ]);
 
   useEffect(() => {
-    setTodoList(syncFromLocalStorage());
+    setTodoList(syncFromLocalStorage("todoTasks"));
+    setUsersData(syncFromLocalStorage("usersData"));
   }, []);
 
-  function updateUsers(action, id, userName, email, pass, isLoggedIn) {
+  function updateUsersData(action, id, userName, email, pass, isLoggedIn) {
     let newUsersData;
 
     switch (action) {
-      // case "addNewUser":
-      //   const newItem = {
-      //     id,
-      //     content,
-      //     isCompleted,
-      //     timestamp,
-      //   };
-      //   setTodoList([...usersData, newItem]);
-      //   addToLocalStorage(id, content, isCompleted, timestamp);
-      //   break;
+      case "addNewUser":
+        const newUser = {
+          id,
+          userName,
+          email,
+          pass,
+          isLoggedIn,
+        };
+        setUsersData([...usersData, newUser]);
+        addToLocalStorage("usersData", newUser);
+        console.log(newUser);
+        break;
 
-      // case "updateData":
+      case "updateData":
+        newUsersData = usersData.map((user) => {
+          if (user.id === id) {
+            return {
+              ...user,
+              userName: userName,
+              email: email,
+              pass: pass,
+            };
+          }
+          return user;
+        });
+        setUsersData(newUsersData);
+        updateToLocalStorage("usersData", newUsersData);
+        break;
+
+      // case "isCompleted":
       //   newUsersData = usersData.map((user) => {
       //     if (user.id === id) {
       //       return {
       //         ...user,
-      //         userName: userName,
-      //         email: email,
-      //         pass: pass,
+      //         isCompleted: !user.isCompleted,
       //       };
       //     }
       //     return user;
@@ -80,33 +97,19 @@ export function TodoListProvider({ children }) {
       //   updateToLocalStorage(newUsersData);
       //   break;
 
-      case "isCompleted":
-        newUsersData = usersData.map((user) => {
-          if (user.id === id) {
-            return {
-              ...user,
-              isCompleted: !user.isCompleted,
-            };
-          }
-          return user;
-        });
-        setTodoList(newUsersData);
-        updateToLocalStorage(newUsersData);
-        break;
-
-      case "delete":
-        const remainingTodos = usersData.filter((user) => {
-          return id !== user.id;
-        });
-        newUsersData = remainingTodos.map((user, index) => {
-          return {
-            ...user,
-            id: index,
-          };
-        });
-        setTodoList(newUsersData);
-        updateToLocalStorage(newUsersData);
-        break;
+      // case "delete":
+      //   const remainingTodos = usersData.filter((user) => {
+      //     return id !== user.id;
+      //   });
+      //   newUsersData = remainingTodos.map((user, index) => {
+      //     return {
+      //       ...user,
+      //       id: index,
+      //     };
+      //   });
+      //   setTodoList(newUsersData);
+      //   updateToLocalStorage(newUsersData);
+      //   break;
 
       default:
         break;
@@ -125,7 +128,7 @@ export function TodoListProvider({ children }) {
           timestamp,
         };
         setTodoList([...toDoList, newItem]);
-        addToLocalStorage("todoTasks", id, content, isCompleted, timestamp);
+        addToLocalStorage("todoTasks", newItem);
         break;
 
       case "update":
@@ -177,7 +180,7 @@ export function TodoListProvider({ children }) {
   return (
     <TodoListContext.Provider value={toDoList}>
       <TodoListUpdateContext.Provider value={updateTodoList}>
-        <UsersData.Provider value={{ usersData, setUsersData }}>
+        <UsersData.Provider value={{ usersData, updateUsersData }}>
           {children}
         </UsersData.Provider>
       </TodoListUpdateContext.Provider>

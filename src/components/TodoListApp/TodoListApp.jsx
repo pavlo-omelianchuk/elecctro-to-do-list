@@ -8,7 +8,7 @@ import InputForm from "./InputForm";
 import Todos from "./Todos";
 
 export default function TodoList() {
-  let { usersData, setUsersData } = useUsersData();
+  let { usersData, updateUsersData } = useUsersData();
   let navigate = useNavigate();
 
   return (
@@ -23,7 +23,7 @@ export default function TodoList() {
               isLoggedIn: false,
             };
           });
-          setUsersData(updateUsers);
+          updateUsersData(updateUsers);
           navigate("/login");
         }}
       />

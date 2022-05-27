@@ -7,24 +7,24 @@ const TodoList = () => {
   const [sortType, setSortType] = useState("timestamp");
   const [isComleatedHidden, setIsComleatedHidden] = useState(false);
 
-  let toDoList = useTodoList();
+  let todoList = useTodoList();
 
-  toDoList = !isComleatedHidden
-    ? toDoList
-    : toDoList.filter((item) => !item.isCompleted);
+  todoList = !isComleatedHidden
+    ? todoList
+    : todoList.filter((item) => !item.isCompleted);
 
   const handleHideCompleted = () => {
     setIsComleatedHidden(!isComleatedHidden);
   };
 
-  const sortByAToZ = (toDoList) => {
-    return toDoList.sort((a, b) => a.content.localeCompare(b.content));
+  const sortByAToZ = (todoList) => {
+    return todoList.sort((a, b) => a.content.localeCompare(b.content));
   };
-  const sortByZToA = (toDoList) => {
-    return toDoList.sort((a, b) => b.content.localeCompare(a.content));
+  const sortByZToA = (todoList) => {
+    return todoList.sort((a, b) => b.content.localeCompare(a.content));
   };
-  const sortByTimestamp = (toDoList) => {
-    return toDoList.sort(
+  const sortByTimestamp = (todoList) => {
+    return todoList.sort(
       (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
     );
   };
@@ -53,17 +53,17 @@ const TodoList = () => {
         </span>
       </div>
       <ul className="tasks_list_wrapper">
-        {toDoList[0] ? (
-          sortManager[sortType](toDoList).map((item, index) => (
+        {todoList[0] ? (
+          sortManager[sortType](todoList).map((item, index) => (
             <Todo item={item} key={index} />
           ))
         ) : (
           <p className="no_todos">No tasks :( Create one!</p>
         )}
       </ul>
-      {toDoList[0] && (
+      {todoList[0] && (
         <div className="hide_completed">
-          Hide completed{" "}
+          {isComleatedHidden ? "Show completed" : "Hide completed"}
           <input
             name="hideCompleted"
             type="checkbox"
