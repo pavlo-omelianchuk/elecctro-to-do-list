@@ -59,6 +59,10 @@ body {
 
     .check_task_content {
       @include checkbox_styling;
+      span {
+        max-width: 80vw;
+        overflow: auto;
+      }
     }
     .manage_buttons {
       span {

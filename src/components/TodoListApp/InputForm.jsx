@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useTodoList, useTodoListUpdate } from "../../utils/todoListContext.js";
+import { useTodoList, useTodoListUpdate } from "../../utils/useContext.js";
 import Button from "../Button/Button";
 
 const InputForm = ({ action, content, id, toggleIsEditing }) => {
   const [taskInputValue, setTaskInputValue] = useState("");
+  const [errorMessageContent, setErrorMessageContent] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (action === "updateForm") {
@@ -16,8 +18,30 @@ const InputForm = ({ action, content, id, toggleIsEditing }) => {
 
   const tasksLength = toDoList?.length || 0;
 
+  const ErrorMessage = () => {
+    return (
+      <div
+        className="error"
+        style={{
+          display: error ? "" : "none",
+        }}
+      >
+        <span>{errorMessageContent} </span>
+      </div>
+    );
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (taskInputValue === "") {
+      setError(true);
+      setErrorMessageContent("Please wright somethimg");
+
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
+      return;
+    }
     if (action === "updateForm") {
       toDoListUpdate("update", id, taskInputValue);
       toggleIsEditing();
@@ -37,6 +61,9 @@ const InputForm = ({ action, content, id, toggleIsEditing }) => {
   };
   return (
     <form className="input_form" onSubmit={handleSubmit}>
+      <div className="messages">
+        <ErrorMessage />
+      </div>
       <input
         type="text"
         placeholder={

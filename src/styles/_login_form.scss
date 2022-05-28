@@ -1,6 +1,6 @@
 .login_form_wrapper {
   text-align: center;
-  background: rgba(0, 0, 0, 0.295);
+  background: rgba(27, 27, 27, 0.598);
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -29,11 +29,6 @@
       justify-content: space-between;
       width: 300px;
     }
-    .messages {
-      position: absolute;
-      top: -20px;
-      color: red;
-    }
     .navigate_to {
       cursor: pointer;
       color: lightseagreen;
@@ -41,4 +36,9 @@
   }
 }
 
-
+.messages {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  color: red;
+}

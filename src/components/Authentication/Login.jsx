@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUsersData } from "../../utils/todoListContext";
+import { useUsersData } from "../../utils/useContext";
 
 import Button from "../Button/Button";
 
@@ -30,7 +30,7 @@ export default function Login() {
           navigate("/");
         } else {
           setError(true);
-          setErrorMessageContent("User does not exist");
+          setErrorMessageContent("Please check entered data");
 
           setTimeout(() => {
             setError(false);
@@ -46,7 +46,7 @@ export default function Login() {
     }
   };
 
-  const errorMessage = () => {
+  const ErrorMessage = () => {
     return (
       <div
         className="error"
@@ -69,7 +69,9 @@ export default function Login() {
   return (
     <div className="login_form_wrapper">
       <form className="login_form" onSubmit={handleSubmit}>
-        <div className="messages">{errorMessage()}</div>
+        <div className="messages">
+          <ErrorMessage />
+        </div>
         <h3>Please Login</h3>
 
         <label>
