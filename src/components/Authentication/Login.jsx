@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUsersData } from "../../utils/useContext";
 
@@ -16,7 +16,7 @@ export default function Login() {
     if (currentUser?.id) {
       navigate("/");
     }
-  }, []);
+  });
 
   let navigate = useNavigate();
 
@@ -28,6 +28,7 @@ export default function Login() {
           console.log("user");
           updateUsersData("login", user.id);
           navigate("/");
+          return user;
         } else {
           setError(true);
           setErrorMessageContent("Please check entered data");
@@ -35,6 +36,7 @@ export default function Login() {
           setTimeout(() => {
             setError(false);
           }, 2000);
+          return user;
         }
       });
     } else {

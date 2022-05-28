@@ -27,6 +27,7 @@ export default function Login() {
           setTimeout(() => {
             setError(false);
           }, 2000);
+          return user;
         } else {
           updateUsersData(
             "addNewUser",
@@ -36,8 +37,8 @@ export default function Login() {
             pass,
             true
           );
-
           navigate("/");
+          return user;
         }
       });
     } else if (!usersData?.length) {
@@ -60,7 +61,7 @@ export default function Login() {
     }
   };
 
-  const errorMessage = () => {
+  const ErrorMessage = () => {
     return (
       <div
         className="error"
@@ -86,7 +87,9 @@ export default function Login() {
   return (
     <div className="login_form_wrapper">
       <form className="login_form" onSubmit={handleSubmit}>
-        <div className="messages">{errorMessage()}</div>
+        <div className="messages">
+          <ErrorMessage />
+        </div>
         <h3>SignUp Form</h3>
         <label>
           Name:

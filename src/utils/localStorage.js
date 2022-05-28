@@ -5,7 +5,6 @@ export const syncFromLocalStorage = (lsKey) => {
     if (key !== lsKey) {
       continue;
     }
-    // console.log(`${key}: ${localStorage.getItem(key)}`);
     return localStorage.getItem(lsKey) === null
       ? []
       : JSON.parse(localStorage.getItem(lsKey));
