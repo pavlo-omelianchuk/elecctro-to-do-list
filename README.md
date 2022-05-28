@@ -21,3 +21,5 @@ Support for user authentication.
 - Registration form
 - User login form
 - Logout button
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a24c06fe-d83e-4771-8542-b78570c62e08/deploy-status)](https://app.netlify.com/sites/elecctro/deploys)
