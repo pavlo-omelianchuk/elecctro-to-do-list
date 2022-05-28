@@ -35,7 +35,7 @@ const InputForm = ({ action, content, id, toggleIsEditing }) => {
     event.preventDefault();
     if (taskInputValue === "") {
       setError(true);
-      setErrorMessageContent("Please wright somethimg");
+      setErrorMessageContent("Please wright something!");
 
       setTimeout(() => {
         setError(false);

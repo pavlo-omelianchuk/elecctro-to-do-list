@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import TodoList from "./components/TodoListApp/Todos.jsx";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test("renders Tasks Title", () => {
+  render(<TodoList />);
+  const tasksTitle = screen.getByText(/Tasks/i);
+  expect(tasksTitle).toBeInTheDocument();
 });
