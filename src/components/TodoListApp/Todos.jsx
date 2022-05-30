@@ -24,9 +24,7 @@ const TodoList = () => {
     return todoList?.sort((a, b) => b.content.localeCompare(a.content));
   };
   const sortByTimestamp = (todoList) => {
-    return todoList?.sort(
-      (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
-    );
+    return todoList?.sort((a, b) => a.timestamp - b.timestamp);
   };
   const sortManager = {
     timestamp: sortByTimestamp,
